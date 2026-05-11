@@ -38,3 +38,33 @@
 [2026-05-11 11:23:48] Proceso de reserva finalizado.
 [2026-05-11 11:23:48] OPERACIÓN 6 EXITOSA
 [2026-05-11 11:23:48] Fin de la ejecución del sistema.
+[2026-05-11 11:43:39] Inicio del sistema Software FJ.
+[2026-05-11 11:43:39] OPERACIÓN 1 EXITOSA
+[2026-05-11 11:43:39] OPERACIÓN 2 EXITOSA
+[2026-05-11 11:43:39] ERROR CONTROLADO EN OPERACIÓN 3: El nombre debe tener mínimo 3 caracteres.
+[2026-05-11 11:43:39] OPERACIÓN 4 EXITOSA
+[2026-05-11 11:43:39] OPERACIÓN 5 EXITOSA
+[2026-05-11 11:43:39] OPERACIÓN 6 EXITOSA
+[2026-05-11 11:43:39] ERROR CONTROLADO EN OPERACIÓN 7: El valor base debe ser mayor que cero.
+[2026-05-11 11:43:39] Reserva confirmada para Francisco Yucuma
+[2026-05-11 11:43:39] Proceso de confirmación finalizado.
+[2026-05-11 11:43:39] Reserva procesada. Costo total: $101745.00
+[2026-05-11 11:43:39] Proceso de reserva finalizado.
+[2026-05-11 11:43:39] OPERACIÓN 8 EXITOSA
+[2026-05-11 11:43:39] Reserva confirmada para Ana María
+[2026-05-11 11:43:39] Proceso de confirmación finalizado.
+[2026-05-11 11:43:39] Reserva procesada. Costo total: $183141.00
+[2026-05-11 11:43:39] Proceso de reserva finalizado.
+[2026-05-11 11:43:39] OPERACIÓN 9 EXITOSA
+[2026-05-11 11:43:39] Reserva confirmada para Francisco Yucuma
+[2026-05-11 11:43:39] Proceso de confirmación finalizado.
+[2026-05-11 11:43:39] Reserva cancelada para Francisco Yucuma
+[2026-05-11 11:43:39] ERROR DE RESERVA: La reserva debe estar confirmada.
+[2026-05-11 11:43:39] Proceso de reserva finalizado.
+[2026-05-11 11:43:39] ERROR CONTROLADO EN OPERACIÓN 10: La reserva debe estar confirmada.
+[2026-05-11 11:43:39] ERROR: El servicio Sala en mantenimiento no está disponible.
+[2026-05-11 11:43:39] Proceso de confirmación finalizado.
+[2026-05-11 11:43:39] ERROR CONTROLADO EN OPERACIÓN 11: El servicio Sala en mantenimiento no está disponible.
+[2026-05-11 11:43:39] ERROR CONTROLADO EN OPERACIÓN 12: La duración debe ser mayor que cero.
+[2026-05-11 11:43:39] OPERACIÓN 13 EXITOSA
+[2026-05-11 11:43:39] Fin de la ejecución del sistema.

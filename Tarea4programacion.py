@@ -663,7 +663,7 @@ def op1():
     return cliente.mostrar_informacion()
 
 def op2():
-    cliente = Cliente("C002", "Ana María", "1076922529", "3004567890")
+    cliente = Cliente("C002", "andres ceron", "1083841075", "3103218279")
     clientes.append(cliente)
     return cliente.mostrar_informacion()
 
