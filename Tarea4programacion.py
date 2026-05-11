@@ -129,4 +129,5 @@ class EntidadSistema(ABC):
 
         Todas las clases hijas deberán implementarlo.
         """
-        pass
+        pass 
+    
