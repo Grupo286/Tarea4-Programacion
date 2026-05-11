@@ -130,7 +130,8 @@ class EntidadSistema(ABC):
         Todas las clases hijas deberán implementarlo.
         """
         pass
-    # =========================================================
+    
+# =========================================================
 # CLASE CLIENTE
 # =========================================================
 
@@ -141,7 +142,7 @@ class Cliente(EntidadSistema):
     ID: 1083841075 | Tel: 3103218279
     """
 
- def __init__(self, codigo, nombre, documento, telefono):
+    def __init__(self, codigo, nombre, documento, telefono):
 
         # Llama al constructor de la clase padre.
         super().__init__(codigo)
@@ -661,8 +662,12 @@ def op1():
 
     return cliente.mostrar_informacion()
 
-
 def op2():
+    cliente = Cliente("C002", "Ana María", "1076922529", "3004567890")
+    clientes.append(cliente)
+    return cliente.mostrar_informacion()
+
+def op3():
 
     # Cliente inválido.
     cliente = Cliente(
@@ -677,7 +682,7 @@ def op2():
     return cliente.mostrar_informacion()
 
 
-def op3():
+def op4():
 
     servicio = ReservaSala(
         "S001",
@@ -702,8 +707,12 @@ def op4():
 
     return servicio.describir_servicio()
 
-
 def op5():
+    servicio = AlquilerEquipo("S002", "Video Beam Epson", 30000)
+    servicios.append(servicio)
+    return servicio.describir_servicio()
+
+def op6():
 
     servicio = AsesoriaEspecializada(
         "S003",
@@ -715,20 +724,62 @@ def op5():
 
     return servicio.describir_servicio()
 
+def op7():
+    servicio = ReservaSala("S004", "Sala dañada", -10000)
+    servicios.append(servicio)
+    return servicio.describir_servicio()
 
-def op6():
 
-    reserva = Reserva(
-        clientes[0],
-        servicios[0],
-        3
+def op8():
+    reserva = Reserva(clientes[0], servicios[0], 3)
+    reservas.append(reserva)
+    reserva.confirmar()
+    return reserva.procesar()
+
+
+def op9():
+    reserva = Reserva(clientes[1], servicios[1], 6)
+    reservas.append(reserva)
+    reserva.confirmar()
+    return reserva.procesar()
+
+
+def op10():
+    reserva = Reserva(clientes[0], servicios[2], 2)
+    reservas.append(reserva)
+    reserva.confirmar()
+    reserva.cancelar()
+    return reserva.procesar()
+
+
+def op11():
+    servicio_no_disponible = ReservaSala(
+        "S005",
+        "Sala en mantenimiento",
+        45000,
+        disponible=False
     )
 
+    reserva = Reserva(clientes[0], servicio_no_disponible, 2)
     reservas.append(reserva)
-
     reserva.confirmar()
-
     return reserva.procesar()
+
+
+def op12():
+    reserva = Reserva(clientes[0], servicios[0], -4)
+    reservas.append(reserva)
+    return reserva.mostrar_reserva()
+
+
+def op13():
+    costo = servicios[2].calcular_costo(
+        duracion=3,
+        descuento=0.10,
+        impuesto=0.19
+    )
+    return f"Cálculo con descuento e impuesto: ${costo:.2f}"
+
 
 
 # =========================================================
@@ -747,8 +798,17 @@ if __name__ == "__main__":
         op3,
         op4,
         op5,
-        op6
+        op6,
+        op7,
+        op8,
+        op9,
+        op10,
+        op11,
+        op12,
+        op13
+
     ]
+
 
     # Ejecuta todas las operaciones.
     for i, operacion in enumerate(

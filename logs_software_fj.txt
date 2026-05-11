@@ -14,3 +14,27 @@
 [2026-05-11 10:53:32] OPERACIÓN 5 EXITOSA
 [2026-05-11 10:53:32] ERROR GRAVE EN OPERACIÓN 6: list index out of range
 [2026-05-11 10:53:32] Fin de la ejecución del sistema.
+[2026-05-11 11:23:13] Inicio del sistema Software FJ.
+[2026-05-11 11:23:13] OPERACIÓN 1 EXITOSA
+[2026-05-11 11:23:13] ERROR CONTROLADO EN OPERACIÓN 2: El nombre debe tener mínimo 3 caracteres.
+[2026-05-11 11:23:13] OPERACIÓN 3 EXITOSA
+[2026-05-11 11:23:13] OPERACIÓN 4 EXITOSA
+[2026-05-11 11:23:13] OPERACIÓN 5 EXITOSA
+[2026-05-11 11:23:13] Reserva confirmada para Francisco Yucuma
+[2026-05-11 11:23:13] Proceso de confirmación finalizado.
+[2026-05-11 11:23:13] Reserva procesada. Costo total: $169575.00
+[2026-05-11 11:23:13] Proceso de reserva finalizado.
+[2026-05-11 11:23:13] OPERACIÓN 6 EXITOSA
+[2026-05-11 11:23:13] Fin de la ejecución del sistema.
+[2026-05-11 11:23:48] Inicio del sistema Software FJ.
+[2026-05-11 11:23:48] OPERACIÓN 1 EXITOSA
+[2026-05-11 11:23:48] ERROR CONTROLADO EN OPERACIÓN 2: El nombre debe tener mínimo 3 caracteres.
+[2026-05-11 11:23:48] OPERACIÓN 3 EXITOSA
+[2026-05-11 11:23:48] OPERACIÓN 4 EXITOSA
+[2026-05-11 11:23:48] OPERACIÓN 5 EXITOSA
+[2026-05-11 11:23:48] Reserva confirmada para Francisco Yucuma
+[2026-05-11 11:23:48] Proceso de confirmación finalizado.
+[2026-05-11 11:23:48] Reserva procesada. Costo total: $169575.00
+[2026-05-11 11:23:48] Proceso de reserva finalizado.
+[2026-05-11 11:23:48] OPERACIÓN 6 EXITOSA
+[2026-05-11 11:23:48] Fin de la ejecución del sistema.
