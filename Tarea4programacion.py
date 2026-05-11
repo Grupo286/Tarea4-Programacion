@@ -141,20 +141,20 @@ class Cliente(EntidadSistema):
     ID: 1083841075 | Tel: 3103218279
     """
 
-    def __init__(self, codigo, nombre, email, identificacion, telefono):
+    def __init__(self, codigo, nombre, email, documento, telefono):
         # Llamada al constructor de la clase abstracta principal (requerido por Francisco)
         super().__init__(codigo)
         
         # Atributos privados para cumplir con la encapsulación 
         self.__nombre = None
         self.__email = None
-        self.__identificacion = None
+        self.__documento = None
         self.__telefono = None
         
         # Uso de setters para aplicar validaciones desde la creación
         self.nombre = nombre
         self.email = email
-        self.identificacion = identificacion
+        self.documento = documento
         self.telefono = telefono
 
     # GETTERS Y SETTERS CON VALIDACIONES ROBUSTAS
@@ -179,15 +179,15 @@ class Cliente(EntidadSistema):
         self.__email = valor
 
     @property
-    def identificacion(self):
-        return self.__identificacion
+    def documento(self):
+        return self.__documento
 
-    @identificacion.setter
-    def identificacion(self, valor):
-        # Validación de que la identificación sea numérica 
+    @documento.setter
+    def documento(self, valor):
+        # Validación de que la documento sea numérica 
         if not str(valor).isdigit():
-            raise DatoInvalidoError("La identificación debe ser un valor numérico.")
-        self.__identificacion = str(valor)
+            raise DatoInvalidoError("La documento debe ser un valor numérico.")
+        self.__documento = str(valor)
 
     @property
     def telefono(self):
@@ -201,7 +201,7 @@ class Cliente(EntidadSistema):
 
     # Implementación del método abstracto exigido por EntidadSistema
     def mostrar_informacion(self):
-        return f"Cliente: {self.nombre} | ID: {self.identificacion} | Email: {self.email} | Tel: {self.telefono}"
+        return f"Cliente: {self.nombre} | ID: {self.documento} | Email: {self.email} | Tel: {self.telefono}"
     
 # =====================================================
 # MÉTODO MOSTRAR INFORMACIÓN
