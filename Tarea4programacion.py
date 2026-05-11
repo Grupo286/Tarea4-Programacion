@@ -325,4 +325,425 @@ class ReservaSala(Servicio):
         return (
             f"Reserva de sala: {self._nombre} "
             f"| Valor hora: ${self._valor_base}"
-        )        
+        ) 
+
+# =========================================================
+# CLASE ALQUILER DE EQUIPO
+# =========================================================
+
+class AlquilerEquipo(Servicio):
+    """
+    Servicio especializado para alquiler de equipos.
+    """
+
+    def calcular_costo(self,
+                        duracion,
+                        descuento=0,
+                        impuesto=0):
+
+        try:
+
+            if duracion <= 0:
+                raise CalculoCostoError(
+                    "La duración debe ser mayor que cero."
+                )
+
+            costo = self._valor_base * duracion
+
+            # Si el alquiler es mayor o igual a 5 horas
+            # se aplica descuento adicional.
+            if duracion >= 5:
+                costo -= costo * 0.10
+
+            costo -= costo * descuento
+            costo += costo * impuesto
+
+            return costo
+
+        except Exception as error:
+
+            raise CalculoCostoError(
+                "Error calculando costo "
+                "de alquiler."
+            ) from error
+
+    def describir_servicio(self):
+
+        return (
+            f"Alquiler de equipo: {self._nombre} "
+            f"| Valor hora: ${self._valor_base}"
+        )
+
+
+# =========================================================
+# CLASE ASESORÍA ESPECIALIZADA
+# =========================================================
+
+class AsesoriaEspecializada(Servicio):
+    """
+    Servicio especializado para asesorías.
+    """
+
+    def calcular_costo(self,
+                        duracion,
+                        descuento=0,
+                        impuesto=0):
+
+        try:
+
+            if duracion <= 0:
+                raise CalculoCostoError(
+                    "La duración debe ser mayor que cero."
+                )
+
+            costo = self._valor_base * duracion
+
+            # Incremento del 20%
+            # por ser asesoría especializada.
+            costo += costo * 0.20
+
+            costo -= costo * descuento
+            costo += costo * impuesto
+
+            return costo
+
+        except Exception as error:
+
+            raise CalculoCostoError(
+                "Error calculando asesoría."
+            ) from error
+
+    def describir_servicio(self):
+
+        return (
+            f"Asesoría especializada: "
+            f"{self._nombre} "
+            f"| Valor hora: ${self._valor_base}"
+        )
+
+
+# =========================================================
+# CLASE RESERVA
+# =========================================================
+
+class Reserva:
+    """
+    Clase que representa una reserva.
+    """
+
+    def __init__(self,
+                 cliente,
+                 servicio,
+                 duracion):
+
+        # Verifica si cliente es válido.
+        if not isinstance(cliente, Cliente):
+            raise ReservaInvalidaError(
+                "Cliente inválido."
+            )
+
+        # Verifica si servicio es válido.
+        if not isinstance(servicio, Servicio):
+            raise ReservaInvalidaError(
+                "Servicio inválido."
+            )
+
+        # Verifica duración.
+        if duracion <= 0:
+            raise ReservaInvalidaError(
+                "La duración debe ser mayor que cero."
+            )
+
+        self.cliente = cliente
+        self.servicio = servicio
+        self.duracion = duracion
+        self.estado = "Pendiente"
+        self.costo_total = 0
+
+    # =====================================================
+    # CONFIRMAR RESERVA
+    # =====================================================
+
+    def confirmar(self):
+
+        try:
+
+            # Verifica disponibilidad.
+            self.servicio.validar_disponibilidad()
+
+            self.estado = "Confirmada"
+
+            registrar_log(
+                f"Reserva confirmada para "
+                f"{self.cliente.nombre}"
+            )
+
+            return "Reserva confirmada."
+
+        except ServicioNoDisponibleError as error:
+
+            registrar_log(f"ERROR: {error}")
+
+            raise
+
+        finally:
+
+            registrar_log(
+                "Proceso de confirmación finalizado."
+            )
+
+    # =====================================================
+    # CANCELAR RESERVA
+    # =====================================================
+
+    def cancelar(self):
+
+        if self.estado == "Cancelada":
+
+            raise ReservaInvalidaError(
+                "La reserva ya está cancelada."
+            )
+
+        self.estado = "Cancelada"
+
+        registrar_log(
+            f"Reserva cancelada para "
+            f"{self.cliente.nombre}"
+        )
+
+        return "Reserva cancelada."
+
+    # =====================================================
+    # PROCESAR RESERVA
+    # =====================================================
+
+    def procesar(self):
+
+        try:
+
+            # Solo se procesan reservas confirmadas.
+            if self.estado != "Confirmada":
+
+                raise ReservaInvalidaError(
+                    "La reserva debe estar confirmada."
+                )
+
+            # Cálculo del costo total.
+            self.costo_total = (
+                self.servicio.calcular_costo(
+                    self.duracion,
+                    descuento=0.05,
+                    impuesto=0.19
+                )
+            )
+
+        except ReservaInvalidaError as error:
+
+            registrar_log(
+                f"ERROR DE RESERVA: {error}"
+            )
+
+            raise
+
+        except CalculoCostoError as error:
+
+            registrar_log(
+                f"ERROR DE CÁLCULO: {error}"
+            )
+
+            raise
+
+        else:
+
+            self.estado = "Procesada"
+
+            registrar_log(
+                f"Reserva procesada. "
+                f"Costo total: ${self.costo_total:.2f}"
+            )
+
+            return (
+                f"Reserva procesada. "
+                f"Costo total: ${self.costo_total:.2f}"
+            )
+
+        finally:
+
+            registrar_log(
+                "Proceso de reserva finalizado."
+            )
+
+
+# =========================================================
+# LISTAS INTERNAS
+# =========================================================
+
+# Aquí se almacenan los objetos.
+
+clientes = []
+servicios = []
+reservas = []
+
+
+# =========================================================
+# FUNCIÓN PARA EJECUTAR OPERACIONES
+# =========================================================
+
+def ejecutar_operacion(numero, funcion):
+
+    print(f"\n--- Operación {numero} ---")
+
+    try:
+
+        resultado = funcion()
+
+    except ErrorSistema as error:
+
+        print(f"Error controlado: {error}")
+
+        registrar_log(
+            f"ERROR CONTROLADO "
+            f"EN OPERACIÓN {numero}: {error}"
+        )
+
+    except Exception as error:
+
+        print(f"Error grave: {error}")
+
+        registrar_log(
+            f"ERROR GRAVE "
+            f"EN OPERACIÓN {numero}: {error}"
+        )
+
+    else:
+
+        print(resultado)
+
+        registrar_log(
+            f"OPERACIÓN {numero} EXITOSA"
+        )
+
+    finally:
+
+        print("La aplicación continúa funcionando.")
+
+
+# =========================================================
+# OPERACIONES DE PRUEBA
+# =========================================================
+
+def op1():
+
+    cliente = Cliente(
+        "C001",
+        "Francisco Yucuma",
+        "1084923560",
+        "3012134262"
+    )
+
+    clientes.append(cliente)
+
+    return cliente.mostrar_informacion()
+
+
+def op2():
+
+    # Cliente inválido.
+    cliente = Cliente(
+        "C002",
+        "An",
+        "ABC123",
+        "123"
+    )
+
+    clientes.append(cliente)
+
+    return cliente.mostrar_informacion()
+
+
+def op3():
+
+    servicio = ReservaSala(
+        "S001",
+        "Sala ejecutiva",
+        50000
+    )
+
+    servicios.append(servicio)
+
+    return servicio.describir_servicio()
+
+
+def op4():
+
+    servicio = AlquilerEquipo(
+        "S002",
+        "Video Beam Epson",
+        30000
+    )
+
+    servicios.append(servicio)
+
+    return servicio.describir_servicio()
+
+
+def op5():
+
+    servicio = AsesoriaEspecializada(
+        "S003",
+        "Asesoría en Software",
+        80000
+    )
+
+    servicios.append(servicio)
+
+    return servicio.describir_servicio()
+
+
+def op6():
+
+    reserva = Reserva(
+        clientes[0],
+        servicios[0],
+        3
+    )
+
+    reservas.append(reserva)
+
+    reserva.confirmar()
+
+    return reserva.procesar()
+
+
+# =========================================================
+# PROGRAMA PRINCIPAL
+# =========================================================
+
+if __name__ == "__main__":
+
+    registrar_log(
+        "Inicio del sistema Software FJ."
+    )
+
+    operaciones = [
+        op1,
+        op2,
+        op3,
+        op4,
+        op5,
+        op6
+    ]
+
+    # Ejecuta todas las operaciones.
+    for i, operacion in enumerate(
+            operaciones,
+            start=1):
+
+        ejecutar_operacion(i, operacion)
+
+    registrar_log(
+        "Fin de la ejecución del sistema."
+    )
+
+    print("\nSistema finalizado correctamente.")
+       
