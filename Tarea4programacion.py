@@ -202,4 +202,127 @@ class Cliente(EntidadSistema):
     # Implementación del método abstracto exigido por EntidadSistema
     def mostrar_informacion(self):
         return f"Cliente: {self.nombre} | ID: {self.identificacion} | Email: {self.email} | Tel: {self.telefono}"
-        
+    
+# =====================================================
+# MÉTODO MOSTRAR INFORMACIÓN
+# =====================================================
+
+    def mostrar_informacion(self):
+
+        return (
+            f"Cliente: {self.__nombre} | "
+            f"Documento: {self.__documento} | "
+            f"Teléfono: {self.__telefono}"
+        )
+
+
+# =========================================================
+# CLASE ABSTRACTA SERVICIO
+# =========================================================
+
+class Servicio(EntidadSistema):
+    """
+    Clase abstracta para representar servicios.
+    """
+
+    def __init__(self, codigo, nombre, valor_base,
+                 disponible=True):
+
+        # Llamado al constructor padre.
+        super().__init__(codigo)
+
+        # Validación del valor base.
+        if valor_base <= 0:
+            raise DatoInvalidoError(
+                "El valor base debe ser mayor que cero."
+            )
+
+        self._nombre = nombre
+        self._valor_base = valor_base
+        self._disponible = disponible
+
+    @abstractmethod
+    def calcular_costo(self,
+                        duracion,
+                        descuento=0,
+                        impuesto=0):
+        """
+        Método abstracto para calcular costos.
+        """
+        pass
+
+    @abstractmethod
+    def describir_servicio(self):
+        """
+        Método abstracto para describir servicios.
+        """
+        pass
+
+ # =====================================================
+ # VALIDAR DISPONIBILIDAD
+ # =====================================================
+
+    def validar_disponibilidad(self):
+
+        if not self._disponible:
+            raise ServicioNoDisponibleError(
+                f"El servicio {self._nombre} "
+                f"no está disponible."
+            )
+
+ # =====================================================
+ # MOSTRAR INFORMACIÓN
+ # =====================================================
+
+    def mostrar_informacion(self):
+
+        return self.describir_servicio()
+
+
+# =========================================================
+# CLASE RESERVA DE SALA
+# =========================================================
+
+class ReservaSala(Servicio):
+    """
+    Servicio especializado para reservas de salas.
+    """
+
+    def calcular_costo(self,
+                        duracion,
+                        descuento=0,
+                        impuesto=0):
+
+        try:
+
+            # Validación de duración.
+            if duracion <= 0:
+                raise CalculoCostoError(
+                    "La duración debe ser mayor que cero."
+                )
+
+            # Fórmula del costo.
+            costo = self._valor_base * duracion
+
+            # Aplicación de descuento.
+            costo -= costo * descuento
+
+            # Aplicación de impuesto.
+            costo += costo * impuesto
+
+            return costo
+
+        except Exception as error:
+
+            # Encadenamiento de excepciones.
+            raise CalculoCostoError(
+                "Error calculando costo "
+                "de reserva de sala."
+            ) from error
+
+    def describir_servicio(self):
+
+        return (
+            f"Reserva de sala: {self._nombre} "
+            f"| Valor hora: ${self._valor_base}"
+        )        
