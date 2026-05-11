@@ -141,42 +141,49 @@ class Cliente(EntidadSistema):
     ID: 1083841075 | Tel: 3103218279
     """
 
-    def __init__(self, codigo, nombre, email, documento, telefono):
-        # Llamada al constructor de la clase abstracta principal (requerido por Francisco)
+ def __init__(self, codigo, nombre, documento, telefono):
+
+        # Llama al constructor de la clase padre.
         super().__init__(codigo)
-        
-        # Atributos privados para cumplir con la encapsulación 
+
+        # Encapsulación:
+        # atributos privados usando doble guion bajo.
         self.__nombre = None
-        self.__email = None
         self.__documento = None
         self.__telefono = None
-        
-        # Uso de setters para aplicar validaciones desde la creación
+
+        # Uso de setters.
         self.nombre = nombre
-        self.email = email
         self.documento = documento
         self.telefono = telefono
 
-    # GETTERS Y SETTERS CON VALIDACIONES ROBUSTAS
+    # =====================================================
+    # PROPIEDAD NOMBRE
+    # =====================================================
+
     @property
     def nombre(self):
+        """
+        Getter del nombre.
+        """
         return self.__nombre
 
     @nombre.setter
     def nombre(self, valor):
+        """
+        Setter del nombre con validación.
+        """
+
         if not valor or len(valor.strip()) < 3:
-            raise DatoInvalidoError("El nombre debe tener al menos 3 caracteres.")
+            raise DatoInvalidoError(
+                "El nombre debe tener mínimo 3 caracteres."
+            )
+
         self.__nombre = valor.strip()
 
-    @property
-    def email(self):
-        return self.__email
-
-    @email.setter
-    def email(self, valor):
-        if "@" not in valor or "." not in valor:
-            raise DatoInvalidoError(f"Email inválido: {valor}")
-        self.__email = valor
+    # =====================================================
+    # PROPIEDAD DOCUMENTO
+    # =====================================================
 
     @property
     def documento(self):
@@ -184,10 +191,18 @@ class Cliente(EntidadSistema):
 
     @documento.setter
     def documento(self, valor):
-        # Validación de que la documento sea numérica 
+
+        # Verifica que solo existan números.
         if not str(valor).isdigit():
-            raise DatoInvalidoError("La documento debe ser un valor numérico.")
+            raise DatoInvalidoError(
+                "El documento debe contener solo números."
+            )
+
         self.__documento = str(valor)
+
+    # =====================================================
+    # PROPIEDAD TELÉFONO
+    # =====================================================
 
     @property
     def telefono(self):
@@ -195,13 +210,14 @@ class Cliente(EntidadSistema):
 
     @telefono.setter
     def telefono(self, valor):
-        if not str(valor).isdigit():
-            raise DatoInvalidoError("El teléfono debe contener solo números.")
-        self.__telefono = str(valor)
 
-    # Implementación del método abstracto exigido por EntidadSistema
-    def mostrar_informacion(self):
-        return f"Cliente: {self.nombre} | ID: {self.documento} | Email: {self.email} | Tel: {self.telefono}"
+        # Validación del teléfono.
+        if not str(valor).isdigit() or len(str(valor)) < 7:
+            raise DatoInvalidoError(
+                "El teléfono debe tener mínimo 7 dígitos."
+            )
+
+        self.__telefono = str(valor)   
     
 # =====================================================
 # MÉTODO MOSTRAR INFORMACIÓN

@@ -1,0 +1,16 @@
+[2026-05-11 10:42:26] Inicio del sistema Software FJ.
+[2026-05-11 10:42:26] ERROR GRAVE EN OPERACIÓN 1: Cliente.__init__() missing 1 required positional argument: 'telefono'
+[2026-05-11 10:42:26] ERROR GRAVE EN OPERACIÓN 2: Cliente.__init__() missing 1 required positional argument: 'telefono'
+[2026-05-11 10:42:26] OPERACIÓN 3 EXITOSA
+[2026-05-11 10:42:26] OPERACIÓN 4 EXITOSA
+[2026-05-11 10:42:26] OPERACIÓN 5 EXITOSA
+[2026-05-11 10:42:26] ERROR GRAVE EN OPERACIÓN 6: list index out of range
+[2026-05-11 10:42:26] Fin de la ejecución del sistema.
+[2026-05-11 10:53:32] Inicio del sistema Software FJ.
+[2026-05-11 10:53:32] ERROR GRAVE EN OPERACIÓN 1: Cliente.__init__() missing 1 required positional argument: 'telefono'
+[2026-05-11 10:53:32] ERROR GRAVE EN OPERACIÓN 2: Cliente.__init__() missing 1 required positional argument: 'telefono'
+[2026-05-11 10:53:32] OPERACIÓN 3 EXITOSA
+[2026-05-11 10:53:32] OPERACIÓN 4 EXITOSA
+[2026-05-11 10:53:32] OPERACIÓN 5 EXITOSA
+[2026-05-11 10:53:32] ERROR GRAVE EN OPERACIÓN 6: list index out of range
+[2026-05-11 10:53:32] Fin de la ejecución del sistema.
